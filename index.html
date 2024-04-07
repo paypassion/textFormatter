@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Formatter</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+
+  textarea, button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  textarea {
+    height: 150px;
+  }
+</style>
+</head>
+<body>
+  <h2>Text Formatter</h2>
+  <textarea id="inputText" placeholder="Enter text here..."></textarea>
+  <button onclick="formatText()">Format Text</button>
+  <textarea id="outputText" placeholder="Formatted text will appear here..." readonly></textarea>
+
+<script>
+function formatText() {
+  let inputText = document.getElementById("inputText").value;
+  // 재귀적으로 텍스트를 포맷하는 함수
+  function recursiveFormat(text) {
+    let formattedText = text.replace(/(\.\s*)/g, ". ").replace(/(\?\s*)/g, "? ").replace(/\s{2,}/g, " ");
+    // 변경 전후의 텍스트가 같다면 모든 변환이 완료된 것입니다.
+    if (formattedText === text) {
+      return formattedText;
+    } else {
+      // 아니라면, 더 이상 변환할 공백이 없을 때까지 재귀적으로 함수를 호출합니다.
+      return recursiveFormat(formattedText);
+    }
+  }
+
+  // 재귀 함수를 사용하여 텍스트 포맷
+  let resultText = recursiveFormat(inputText);
+  document.getElementById("outputText").value = resultText;
+}
+
+</script>
+</body>
+</html>
